@@ -1,5 +1,9 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
+# Configuration file for Dell Precision 5510
+# Host: Dell Inc. 0W7V82
+# CPU:  Intel i5-6300HQ (4) @ 3.200GHz - Skylake
+# GPU:  NVIDIA Quadro M1000M - Maxwell (nvidia properietary driver)
+# GPU:  Intel HD Graphics 530 - Gen9 Intel GPU (intel-media-driver)
+# Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, lib, pkgs, ... }:
@@ -40,14 +44,9 @@
   networking.wireless.networks = {
 	  TP-Link_D5CA = {
 	  	pskRaw = "4549d8c35c0ff7cd552a760930f8a0f38912d7cfb3dc5351a58d8644c24984c8";
-		priority = 1;
+		  priority = 1;
 	  };
 	};
-
-
-  # Logitech Unifying Receiver (wireless mice/keyboards)
-  hardware.logitech.wireless.enable = true;
-  hardware.logitech.wireless.enableGraphical = true;
 
   # Enable bluetooth
   hardware.bluetooth.enable = true;
@@ -143,7 +142,7 @@
     home  = "/home/pcf26536";
     # generate hash using "mkpasswd -m sha-512"
     # change user password using "passwd" command
-	hashedPassword = "$6$gW4Y1P/EdJRmGptY$a/nwAew1mcAqasqOriso/osliwhvAlaDXGSim3wgSDa3bNLUAnOGy83a6UjmnwyKPpfzjP1zSVcramogqkXW41";
+	  hashedPassword = "$6$gW4Y1P/EdJRmGptY$a/nwAew1mcAqasqOriso/osliwhvAlaDXGSim3wgSDa3bNLUAnOGy83a6UjmnwyKPpfzjP1zSVcramogqkXW41";
     description = "Wainaina Gichuhi";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
@@ -185,6 +184,13 @@
 
       zsh = {
         historySubstringSearch.enable = true;
+        zplug = {
+          enable = true;
+          plugins = [
+            { name = "romkatv/powerlevel10k"; tags = [ as:theme depth:1 ]; } # Installations with additional options. For the list of options, please refer to Zplug README.
+            { name = "plugins/git"; }
+          ];
+        };
       };
     };
     
@@ -258,24 +264,50 @@
     android-tools
     git
     wget
-    thefuck
     nix-zsh-completions
-    partition-manager
     meslo-lgs-nf
-    zsh-powerlevel10k
+    #zsh-powerlevel10k
     mlocate
     htop
     bleachbit
+    gparted
   ];
 
-  # NVIDIA on NixOS - https://nixos.wiki/wiki/Nvidia
-  # Make sure opengl is enabled
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
+  # environment variables that are available system-wide
+  environment.variables = {
+    LIBVA_DRIVER_NAME = "iHD"; # or i965
   };
 
+  # GPU Acceleration
+  # Make sure opengl is enabled
+  hardware.opengl = {
+    # OpenGL - 3D graphics
+    enable = true;
+    # Vulkan - 3D graphics;
+    driSupport = true;
+    #driSupport32Bit = true;
+    extraPackages = with pkgs; [
+      # VA-API - video playback
+      intel-media-driver # LIBVA_DRIVER_NAME=iHD
+      #vaapiIntel         # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+      # VDPAU - video playback
+      vaapiVdpau
+      libvdpau-va-gl
+      # OpenCL - general-purpose computing
+      intel-compute-runtime
+    ];
+    # extraPackages32 = with pkgs.pkgsi686Linux; [ vaapiIntel ];
+  };
+
+  # overrides to enable Intel's Hybrid Driver. 
+  /* nixpkgs.config.packageOverrides = pkgs: {
+    vaapiIntel = pkgs = { 
+      # vaapiIntel.override { enableHybridCodec = true; }; 
+      intel-media-driver.override { enableHybridCodec = true; };
+    };
+  };*/
+
+  # NVIDIA Quadro M1000M: NVIDIA on NixOS - https://nixos.wiki/wiki/Nvidia
   # NVIDIA drivers are unfree.
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [
@@ -293,7 +325,7 @@
 
     # Use the open source version of the kernel module
     # Only available on driver 515.43.04+
-    open = true;
+    open = false;
 
     # Enable the nvidia settings menu
     nvidiaSettings = true;
@@ -312,26 +344,9 @@
       nvidiaBusId = "PCI:1:0:0";
     };
   };
- 
-  # Accelerated Video Playback 
-  nixpkgs.config.packageOverrides = pkgs: {
-    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
-  };
-  hardware.opengl = {
-    #enable = true;
-    extraPackages = with pkgs; [
-      intel-media-driver # LIBVA_DRIVER_NAME=iHD
-      vaapiIntel         # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
-      vaapiVdpau
-      libvdpau-va-gl
-      # OpenCL
-      intel-compute-runtime
-    ];
-  };
 
   # Command Shell
   # zsh
-  #programs.zsh.enable = true;
   programs.zsh = {
       enable = true;
       autosuggestions.enable = true;
@@ -343,10 +358,10 @@
         switch = "sudo nixos-rebuild switch";
         testc = "sudo nixos-rebuild test";
       };
-      ohMyZsh = {
+      /*ohMyZsh = {
         enable = true;
         plugins = [ "git" "thefuck" "sudo"];
-		theme = "robbyrussell";
+		    theme = "robbyrussell";
         #theme = "powerlevel10k";
       };
       /*plugins = [
@@ -361,7 +376,7 @@
           file = "p10k.zsh";
         }
       ];*/
-    };
+  };
   users.defaultUserShell = pkgs.zsh;
   environment.shells = with pkgs; [ zsh ];
   # completion for system packages
@@ -394,12 +409,8 @@
 
   # File Systems
   # check compatibility e2fsprogs - e2fsck (Feature C12 on 1.47.0 and later)
-  fileSystems."/nix" = {
-    device = lib.mkForce "/dev/disk/by-label/nix";
-    fsType = "ext4";
-    neededForBoot = true;
-    options = [ "bind"];
-  };
+  # make sure to mount /nix during installation
+  # /nix filesystem will be automatically defined in hardware-configuration.nix
   
   fileSystems."/data" = { 
     device = "/dev/disk/by-label/data";
