@@ -184,13 +184,6 @@
 
       zsh = {
         historySubstringSearch.enable = true;
-        zplug = {
-          enable = true;
-          plugins = [
-            { name = "romkatv/powerlevel10k"; tags = [ as:theme depth:1 ]; } # Installations with additional options. For the list of options, please refer to Zplug README.
-            { name = "plugins/git"; }
-          ];
-        };
       };
     };
     
@@ -266,7 +259,7 @@
     wget
     nix-zsh-completions
     meslo-lgs-nf
-    #zsh-powerlevel10k
+    zsh-powerlevel10k
     mlocate
     htop
     bleachbit
@@ -352,30 +345,20 @@
       autosuggestions.enable = true;
       enableCompletion = true;
       syntaxHighlighting.enable = true;
+      # If you want to reduce the startup time of your shells
+      #enableGlobalCompInit = false;
+      promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
       shellAliases = {
         upgrade = "sudo nix-channel --update && sudo nixos-rebuild switch --upgrade";
         update = "sudo nix-channel --update";
         switch = "sudo nixos-rebuild switch";
         testc = "sudo nixos-rebuild test";
       };
-      /*ohMyZsh = {
+      ohMyZsh = {
         enable = true;
-        plugins = [ "git" "thefuck" "sudo"];
-		    theme = "robbyrussell";
-        #theme = "powerlevel10k";
+        plugins = [ "sudo"];
+		    #theme = "robbyrussell";
       };
-      /*plugins = [
-        {
-          name = "powerlevel10k";
-          src = pkgs.zsh-powerlevel10k;
-          file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-        }
-        {
-          name = "powerlevel10k-config";
-          src = lib.cleanSource ./p10k-config;
-          file = "p10k.zsh";
-        }
-      ];*/
   };
   users.defaultUserShell = pkgs.zsh;
   environment.shells = with pkgs; [ zsh ];
