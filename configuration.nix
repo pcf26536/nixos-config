@@ -179,6 +179,7 @@
       mcfly = {
         enable = true;
         enableLightTheme = true;
+        enableBashIntegration = true;
         enableZshIntegration = true;
       };
 
@@ -282,7 +283,7 @@
     extraPackages = with pkgs; [
       # VA-API - video playback
       intel-media-driver # LIBVA_DRIVER_NAME=iHD
-      #vaapiIntel         # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+      vaapiIntel         # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
       # VDPAU - video playback
       vaapiVdpau
       libvdpau-va-gl
@@ -293,12 +294,9 @@
   };
 
   # overrides to enable Intel's Hybrid Driver. 
-  /* nixpkgs.config.packageOverrides = pkgs: {
-    vaapiIntel = pkgs = { 
-      # vaapiIntel.override { enableHybridCodec = true; }; 
-      intel-media-driver.override { enableHybridCodec = true; };
-    };
-  };*/
+  nixpkgs.config.packageOverrides = pkgs: {
+    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
+  };
 
   # NVIDIA Quadro M1000M: NVIDIA on NixOS - https://nixos.wiki/wiki/Nvidia
   # NVIDIA drivers are unfree.
