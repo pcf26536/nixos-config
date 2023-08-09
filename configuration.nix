@@ -1,8 +1,8 @@
 # Configuration file for Dell Precision 5510
 # Host: Dell Inc. 0W7V82
 # CPU:  Intel i5-6300HQ (4) @ 3.200GHz - Skylake
-# GPU:  NVIDIA Quadro M1000M - Maxwell (nvidia properietary driver)
-# GPU:  Intel HD Graphics 530 - Gen9 Intel GPU (intel-media-driver)
+# GPU:  NVIDIA Quadro M1000M - Maxwell (nvidia properietary driver) - muxless/non-MXM Optimus card (3D Controller)
+# GPU:  Intel HD Graphics 530 - Gen9 Intel GPU (intel-media-driver) - MXM / output-providing card (VGA Controller)
 # Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
@@ -304,6 +304,7 @@
     builtins.elem (lib.getName pkg) [
       "nvidia-x11"
       "nvidia-settings"
+      "nvidia-persistenced" # the daemon prevents the driver from releasing device state when the device is not in use
     ];
 
   # Tell Xorg to use /enable the properietary nvidia driver
@@ -381,10 +382,6 @@
 
       # Required for containers under podman-compose to be able to talk to each other.
       defaultNetwork.settings.dns_enabled = true;
-      # For Nixos version > 22.11
-      #defaultNetwork.settings = {
-      # dns_enabled = true;
-      #};
     };
   };
 
