@@ -34,9 +34,9 @@
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable networking - turn off to prevent spofity offline mode 
-  #networking.networkmanager.enable = true;
+  networking.networkmanager.enable = true;
   # Note: use nmtui to connect to wifi on ttyl/rescue mode
-  networking.networkmanager.unmanaged = [ "interface-name:wlp2s0" ];
+  /*networking.networkmanager.unmanaged = [ "interface-name:wlp2s0" ];
   # You cannot use networking.networkmanager with networking.wireless.
   # Unless you mark some interfaces as unmanaged by networkmanager
   networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -46,7 +46,15 @@
 	  	pskRaw = "4549d8c35c0ff7cd552a760930f8a0f38912d7cfb3dc5351a58d8644c24984c8";
 		  priority = 1;
 	  };
-	};
+    AndroidAP_2837 = {
+      pskRaw = "c2337cacac639a449a00fff137039b927b866480efff4fc5ef9918b93134d14b";
+      priority = 2;
+    };
+    "Galaxy S10e8f21" = {
+      pskRaw = "05a32002fa5b592853e1bcac185a7f3172a0c1c1638c932d0ffae2c5b376516b";
+      priority = 3;
+    };
+	};*/
 
   # Enable bluetooth
   hardware.bluetooth.enable = true;
@@ -269,7 +277,7 @@
 
   # environment variables that are available system-wide
   environment.variables = {
-    LIBVA_DRIVER_NAME = "iHD"; # or i965
+    LIBVA_DRIVER_NAME = "i965"; # or iHD
   };
 
   # GPU Acceleration
@@ -283,7 +291,7 @@
     extraPackages = with pkgs; [
       # VA-API - video playback
       intel-media-driver # LIBVA_DRIVER_NAME=iHD
-      #vaapiIntel         # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+      vaapiIntel         # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
       # VDPAU - video playback
       vaapiVdpau
       libvdpau-va-gl
@@ -294,9 +302,9 @@
   };
 
   # overrides to enable Intel's Hybrid Driver. 
-  /*nixpkgs.config.packageOverrides = pkgs: {
+  nixpkgs.config.packageOverrides = pkgs: {
     vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
-  };*/
+  };
 
   # NVIDIA Quadro M1000M: NVIDIA on NixOS - https://nixos.wiki/wiki/Nvidia
   # NVIDIA drivers are unfree.
@@ -432,7 +440,8 @@
 
   # Automatic Upgrades
   system.autoUpgrade.enable = true;
-  system.autoUpgrade.allowReboot = true;
+  system.autoUpgrade.dates = "weekly";
+  system.autoUpgrade.operation = "boot";
   
   # Managing storage
   # automatically do daily garbage collection
