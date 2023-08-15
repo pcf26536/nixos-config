@@ -273,6 +273,7 @@
     htop
     bleachbit
     gparted
+    python311
   ];
 
   # environment variables that are available system-wide
