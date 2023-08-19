@@ -33,7 +33,7 @@
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  # Enable networking - turn off to prevent spofity offline mode 
+  # Enable networking - turn off to prevent spofity offline mode while using wpa_supplicant
   networking.networkmanager.enable = true;
   # Note: use nmtui to connect to wifi on ttyl/rescue mode
   /*networking.networkmanager.unmanaged = [ "interface-name:wlp2s0" ];
@@ -274,6 +274,7 @@
     bleachbit
     gparted
     python311
+    brave
   ];
 
   # environment variables that are available system-wide
