@@ -273,8 +273,8 @@
     htop
     bleachbit
     gparted
-    python311
     brave
+    (python311.withPackages(ps: with ps; [ tkinter ]))
   ];
 
   # environment variables that are available system-wide
