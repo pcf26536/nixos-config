@@ -38,28 +38,37 @@
     # hostname
     hostName = "precision5510";
 
-    # Enable networking - turn off to prevent spofity offline mode while using wpa_supplicant
-    networkmanager.enable = true;
-    # Note: use nmtui to connect to wifi on ttyl/rescue mode
-    /*networking.networkmanager.unmanaged = [ "interface-name:wlp2s0" ];
-    # You cannot use networking.networkmanager with networking.wireless.
-    # Unless you mark some interfaces as unmanaged by networkmanager
-    networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-    networking.wireless.userControlled.enable = true;
-    networking.wireless.networks = {
-      TP-Link_D5CA = {
-        pskRaw = "4549d8c35c0ff7cd552a760930f8a0f38912d7cfb3dc5351a58d8644c24984c8";
-        priority = 1;
+    networkmanager = {
+      # Enable networking - turn off to prevent spofity offline mode while using wpa_supplicant
+      enable = true;
+      # Note: use nmtui to connect to wifi on ttyl/rescue mode
+      unmanaged = [ "interface-name:wlp2s0" ];
+    };
+
+    wireless = {
+      # You cannot use networking.networkmanager with networking.wireless.
+      # Unless you mark some interfaces as unmanaged by networkmanager
+      enable = true;  # Enables wireless support via wpa_supplicant.
+      userControlled.enable = true;
+      networks = {
+        TP-Link_D5CA = {
+          pskRaw = "4549d8c35c0ff7cd552a760930f8a0f38912d7cfb3dc5351a58d8644c24984c8";
+          priority = 2;
+        };
+        AndroidAP_2837 = {
+          pskRaw = "c2337cacac639a449a00fff137039b927b866480efff4fc5ef9918b93134d14b";
+          priority = 1;
+        };
+        "Galaxy S10e8f21" = {
+          pskRaw = "05a32002fa5b592853e1bcac185a7f3172a0c1c1638c932d0ffae2c5b376516b";
+          priority = 1;
+        };
+        Sweppenberg = {
+          pskRaw = "df13ee579dd61395c45bd21e29d6b0e8d4e4febfba9f0aadde29975471def425";
+          priority = 2;
+        };
       };
-      AndroidAP_2837 = {
-        pskRaw = "c2337cacac639a449a00fff137039b927b866480efff4fc5ef9918b93134d14b";
-        priority = 2;
-      };
-      "Galaxy S10e8f21" = {
-        pskRaw = "05a32002fa5b592853e1bcac185a7f3172a0c1c1638c932d0ffae2c5b376516b";
-        priority = 3;
-      };
-    };*/
+    };
 
     firewall = {
       enable = true;
