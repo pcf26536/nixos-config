@@ -40,7 +40,7 @@
 
     networkmanager = {
       # Enable networking - turn off to prevent spofity offline mode while using wpa_supplicant
-      enable = true;
+      #enable = true;
       # Note: use nmtui to connect to wifi on ttyl/rescue mode
       unmanaged = [ "interface-name:wlp2s0" ];
     };
