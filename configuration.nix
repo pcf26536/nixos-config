@@ -505,8 +505,12 @@
   nix = {
     # automatically do daily garbage collection
     gc.automatic = true;
-    # Deduplication
-    settings.auto-optimise-store = true;
+    settings = {
+      # Deduplication
+      auto-optimise-store = true;
+      # Enable flakes
+      experimental-features = [ "nix-command" "flakes" ];
+    };
   };
 
 }
