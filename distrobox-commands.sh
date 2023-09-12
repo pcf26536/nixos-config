@@ -15,6 +15,7 @@ sudo pacman -S yay fakeroot binutils neofetch rate-mirrors xdman audiorelay
 rate-mirrors arch | sudo tee /etc/pacman.d/mirrorlist
 sudo pacman -Syyu
 yay -S adobe-source-sans-pro-fonts ttf-dejavu ttf-opensans noto-fonts freetype2 terminus-font ttf-bitstream-vera ttf-dejavu ttf-droid ttf-fira-mono ttf-fira-sans ttf-freefont ttf-inconsolata ttf-liberation libertinus-font
-yay -S googlekeep
+yay -S googlekeep whatsdesk-bin
 distrobox-export -a xdman
 distrobox-export -a googlekeep
+distrobox-export -a whatsdesk
