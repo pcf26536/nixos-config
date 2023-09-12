@@ -280,7 +280,6 @@
       gnome-frog
       libsForQt5.kcalc
       copyq
-      whatsapp-for-linux
       etcher
       intel-gpu-tools
       neofetch
