@@ -93,7 +93,7 @@
       enable = true;
       powerOnBoot = true;
       # Enabling A2DP Sink
-      settings.General.Enable = "Source,Sink,Media,Socket";
+      #settings.General.Enable = "Source,Sink,Media,Socket";
     };
 
     # bluetooth with PulseAudio
@@ -419,7 +419,7 @@
     };
       
     # Using Bluetooth headset buttons to control media player
-    systemd.user.services.mpris-proxy = {
+    /*systemd.user.services.mpris-proxy = {
       Unit = {
         Description =
           "Proxy forwarding Bluetooth MIDI controls via MPRIS2 to control media players";
@@ -433,7 +433,9 @@
         Type = "simple";
         ExecStart = "${pkgs.bluez}/bin/mpris-proxy";
       };
-    };
+    };*/
+    # Whether to enable a proxy forwarding Bluetooth MIDI controls via MPRIS2 to control media players.
+    services.mpris-proxy.enable = true;
   };
 
   nixpkgs.config = {
