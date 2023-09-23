@@ -2,9 +2,7 @@
 # Host: Dell Inc. 0W7V82
 # CPU:  Intel i5-6300HQ (4) @ 3.200GHz - Skylake
 # GPU:  NVIDIA Quadro M1000M - Maxwell (nvidia properietary driver) - muxless/non-MXM Optimus card (3D Controller)
-# GPU:  Intel HD Graphics 530 - Gen9 Intel GPU (intel-media-driver) - MXM / output-providing card (VGA Controller)
-# Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
+# GPU:  Intel HD Graphics 530 - Gen9 Intel GPU (intel-media-driver) - MXM/output-providing card (VGA Controller)
 
 { config, lib, pkgs, ... }:
 
@@ -123,7 +121,6 @@
         # OpenCL - general-purpose computing
         intel-compute-runtime
       ];
-      # extraPackages32 = with pkgs.pkgsi686Linux; [ vaapiIntel ];
     };
 
     # Completely disable the NVIDIA graphics card and use the integrated graphics processor instead.
@@ -418,22 +415,6 @@
       videos = "/data/Videos";
     };
       
-    # Using Bluetooth headset buttons to control media player
-    /*systemd.user.services.mpris-proxy = {
-      Unit = {
-        Description =
-          "Proxy forwarding Bluetooth MIDI controls via MPRIS2 to control media players";
-        BindsTo = [ "bluetooth.target" ];
-        After = [ "bluetooth.target" ];
-      };
-
-      Install.WantedBy = [ "bluetooth.target" ];
-
-      Service = {
-        Type = "simple";
-        ExecStart = "${pkgs.bluez}/bin/mpris-proxy";
-      };
-    };*/
     # Whether to enable a proxy forwarding Bluetooth MIDI controls via MPRIS2 to control media players.
     services.mpris-proxy.enable = true;
   };
