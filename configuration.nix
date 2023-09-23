@@ -74,7 +74,7 @@
       enable = true;
       # Open ports in the firewall.
       # 7070 AnyDesk, 80 HTTP, 443 HTTPS
-      allowedTCPPorts = [ 80 443 7070 59100 ];
+      allowedTCPPorts = [ 53 80 443 7070 59100 ];
       # 53 - DNS, 59100 - AudioRelay
       allowedUDPPorts = [ 53 59100 ];
       # port ranges
