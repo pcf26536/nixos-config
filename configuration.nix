@@ -51,7 +51,7 @@
       networks = {
         TP-Link_D5CA = {
           pskRaw = "4549d8c35c0ff7cd552a760930f8a0f38912d7cfb3dc5351a58d8644c24984c8";
-          priority = 2;
+          priority = 1;
         };
         AndroidAP_2837 = {
           pskRaw = "c2337cacac639a449a00fff137039b927b866480efff4fc5ef9918b93134d14b";
@@ -63,7 +63,7 @@
         };
         Sweppenberg = {
           pskRaw = "df13ee579dd61395c45bd21e29d6b0e8d4e4febfba9f0aadde29975471def425";
-          priority = 2;
+          priority = 1;
         };
       };
     };
