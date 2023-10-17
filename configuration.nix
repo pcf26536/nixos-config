@@ -152,17 +152,17 @@
       prime = {
         # Optimus PRIME Option A: Offload Mode
         # Use offload command to turn on Nvidia when needed
-        offload = {
+        /*offload = {
           enable = true;
           enableOffloadCmd = true;
-        };
+        };*/
         # Optimus PRIME Option B: Sync Mode
         # Nvidia always on and used for all rendering
         #sync.enable = true;
 
         # Optimus Option C: Reverse Sync Mode (Experimental)
         # Nvidia handles output to external display
-        #reverseSync.enable = true;
+        reverseSync.enable = true;
 
         intelBusId = "PCI:0:2:0";
         nvidiaBusId = "PCI:1:0:0";
