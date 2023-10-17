@@ -295,7 +295,6 @@
       brave
       (python311.withPackages(ps: with ps; [ tkinter ]))
       xorg.xhost # distrobox access to xserver
-      wpa_supplicant_gui
       #(builtins.getFlake "github:JamesReynolds/audiorelay-flake").defaultPackage.x86_64-linux
     ];
 
