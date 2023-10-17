@@ -62,7 +62,7 @@
           priority = 1;
         };
         Sweppenberg = {
-          pskRaw = "df13ee579dd61395c45bd21e29d6b0e8d4e4febfba9f0aadde29975471def425";
+          pskRaw = "34fd8cd51a2e79f8c70258a4f9402c11279505d24a96e1b1e59811b818070bb0";
           priority = 1;
         };
       };
