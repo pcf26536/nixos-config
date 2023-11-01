@@ -1,7 +1,7 @@
 # Configuration file for Dell Precision 5510
 # Host: Dell Inc. 0W7V82
 # CPU:  Intel i5-6300HQ (4) @ 3.200GHz - Skylake
-# GPU:  NVIDIA Quadro M1000M - Maxwell (nvidia properietary driver) - muxless/non-MXM Optimus card (3D Controller)
+# GPU:  NVIDIA Quadro M1000M [GM107GLM] - Maxwell (nvidia properietary driver) - muxless/non-MXM Optimus card (3D Controller)
 # GPU:  Intel HD Graphics 530 - Gen9 Intel GPU (intel-media-driver) - MXM/output-providing card (VGA Controller)
 
 { config, lib, pkgs, ... }:
